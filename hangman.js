@@ -2,28 +2,18 @@ const readlineSync = require('readline-sync');
 const random = require('random');
 const string = require('string');
 const images = require('./images.js');
-// // const word = require('./word.js')
-// // console.log(word);
-// // console.log(images);
-var imageIndex = 0;
-function load_words(){
-    word_list = ["navgurukul", "learning", "kindness"]
-    return word_list
-};
+const word = require('./word.js')
+// console.log(word);
 
-function choose_word() {
-    word_list = load_words()
-    secret_word = word_list[Math.floor(Math.random() * word_list.length)];
-    secret_word = secret_word.toLowerCase();
-    return secret_word
-};
-// // console.log(choose_word());
+var imageIndex;
 
-function afterAttemptaWrongletter(images){
-    
+function afterAttemptaWrongletter(imageIndex, images){
+    while(imageIndex < images.length){
+        pic = images[imageIndex]
+        imageIndex++;
+        return pic
+    };
 };
-// afterAttemptawongletter()
-
 
 
 function is_word_guessed(secret_word, letters_guessed){
@@ -49,9 +39,9 @@ function get_available_letters(){
     const length = 26
     let i = 65 + length + 6
     return [...Array(length)]
-      .reduce(function (accumulator) {
-        return accumulator + String.fromCharCode(i++)
-      }, '');
+      .reduce(function (allAlphabate) {
+        return allAlphabate + String.fromCharCode(i++)
+      },'');
 };
 
 function hangman(secret_word){
@@ -64,7 +54,7 @@ function hangman(secret_word){
     available_letters = get_available_letters(letters_guessed);
     console.log("Available letters: " + available_letters);
     
-    for(let secretIndex = 0; secretIndex<secret_word.length; secretIndex++){
+    for(let index = 0; index<secret_word.length; index++){
         guess = readlineSync.question("Please guess a letter: ")
         letter = guess.toLowerCase()
         if (secret_word.includes(letter)){
@@ -81,29 +71,14 @@ function hangman(secret_word){
         else{
             console.log("Oops! That letter is not in my word: " + get_guessed_word(secret_word, letters_guessed))
             letters_guessed.push(letter)
-            console.log(letters_guessed, "IIIIIIII");
+            console.log(letters_guessed);
             console.log("")
-            callImage = afterAttemptawongletter(, images)
+            callImage = afterAttemptaWrongletter(index, images)
             console.log(callImage);
         };
     };
-    // else{
-    //     console.log("Oops! That letter is not in my word: " + get_guessed_word(secret_word, letters_guessed))
-    //     letters_guessed.push(letter)
-    //     console.log("")
-    // };
-   
-    // if (is_word_guessed(secret_word, letters_guessed) == true){
-    //     console.log(" * * Congratulations, you won! * * ")
-    //     console.log("")
-    // }
-          
-    // else{
-    //     console.log("Oops! That letter is not in my word: " + get_guessed_word(secret_word, letters_guessed))
-    //     letters_guessed.push(letter)
-    //     console.log("")
-    // };
+    
 };
 
-secret_word = choose_word()
+secret_word = word
 hangman(secret_word);

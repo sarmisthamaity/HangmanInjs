@@ -16,4 +16,4 @@ function choose_word() {
 };
 // choose_word()
 
-module.export = choose_word() ;
+module.exports = choose_word() ;
