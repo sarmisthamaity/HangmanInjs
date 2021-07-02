@@ -10,7 +10,7 @@
  *medium level we will get 6 chance.
  *easy level we will get 8 chance.
  
- # used here 
-  * random method.
-  * function.
-  * readlinesync for taking user input.
+# used here 
+ * random method.
+ * function.
+ * readlinesync for taking user input.
